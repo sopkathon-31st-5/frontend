@@ -1,18 +1,13 @@
 import styled from 'styled-components';
-// import resultImg from '../assets/image/resultImg.svg';
 import resultImg from '../assets/image/Group 33950.png';
 
-// import { useRecoilValue } from 'recoil';
-// import userData from '../states/atom/userData';
 import { useEffect } from 'react';
 import axios from 'axios';
 
 function Card(userDataList) {
   const cardData = userDataList.userDataList;
-  console.log(cardData.card.type);
   const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   const workDaysList = userDataList.userDataList.weekday;
-  console.log(workDaysList['mon']);
 
   const userName = userDataList.userDataList.userName.name;
 
