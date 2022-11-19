@@ -19,8 +19,8 @@ function ShopDeatial1({ setStep }) {
     // TODO 가게 이름 아닌 유저 이름으로 바꾸기
     setInputData({
       ...inputData,
-      card: {
-        ...inputData.card,
+      userName: {
+        ...inputData.userName,
         name: e.target.value,
       },
     });
@@ -82,6 +82,7 @@ function ShopDeatial1({ setStep }) {
             <Styled.DetailInput
               onChange={e => nameChange(e)}
               placeholder="사장님 성함"
+              defaultValue={inputData?.userName?.name}
             ></Styled.DetailInput>
             <Styled.Ischecked src={namecheck ? checked_icon : unchecked_icon} />
           </div>
@@ -103,6 +104,7 @@ function ShopDeatial1({ setStep }) {
             <Styled.DetailInput
               onChange={e => callnumChange(e)}
               placeholder="전화번호 (-없이 입력)"
+              defaultValue={inputData?.card?.telNumber}
             ></Styled.DetailInput>
             <Styled.Ischecked src={callnumcheck ? checked_icon : unchecked_icon} />
           </div>

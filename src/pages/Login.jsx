@@ -19,9 +19,12 @@ function Login() {
     navigate('/make_business_card');
     setInputData({
       ...inputData,
+      userName: {
+        ...inputData.userName,
+        name: user,
+      },
       card: {
         ...inputData.card,
-        name: user,
         telNumber: phoneNumber,
       },
     });

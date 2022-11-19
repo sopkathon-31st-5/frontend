@@ -3,20 +3,23 @@ import checked_icon from '../../assets/icon/ic_inputChecked.svg';
 import unchecked_icon from '../../assets/icon/ic_inputUnchecked.svg';
 import { useState } from 'react';
 import Button from '../common/Button';
+import { useRecoilState } from 'recoil';
+import userData from '../../states/atom/userData';
 
 function ShopDetail2({ setStep }) {
   // 배달 가능 여부
   const [toggle, setToggle] = useState(false);
   const [isDeliveryClicked, setIsDeliveryClicked] = useState(false);
   const [checkedDay, setcheckedDay] = useState(false);
+  const [inputData, setInputData] = useRecoilState(userData);
   const [daysNew, setDaysNew] = useState([
-    { week: '월', isActive: false },
-    { week: '화', isActive: false },
-    { week: '수', isActive: false },
-    { week: '목', isActive: false },
-    { week: '금', isActive: false },
-    { week: '토', isActive: false },
-    { week: '일', isActive: false },
+    { week: '월', isActive: false, en: 'mon' },
+    { week: '화', isActive: false, en: 'tue' },
+    { week: '수', isActive: false, en: 'wed' },
+    { week: '목', isActive: false, en: 'thu' },
+    { week: '금', isActive: false, en: 'fri' },
+    { week: '토', isActive: false, en: 'sat' },
+    { week: '일', isActive: false, en: 'sun' },
   ]);
 
   const handleClick = () => {
@@ -26,11 +29,24 @@ function ShopDetail2({ setStep }) {
   const handleYes = () => {
     setToggle(true);
     setIsDeliveryClicked(true);
-    console.log(isDeliveryClicked);
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        isDeliver: true,
+      },
+    });
   };
   const handleNo = () => {
     setToggle(false);
     setIsDeliveryClicked(true);
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        isDeliver: false,
+      },
+    });
   };
 
   const toggleActive = e => {
@@ -39,11 +55,25 @@ function ShopDetail2({ setStep }) {
     copyDay[idx].isActive = !copyDay[idx].isActive;
     setcheckedDay(true);
     setDaysNew(copyDay);
-    console.log(daysNew);
+    const weekDayData = {};
+    copyDay.map(item => {
+      return (weekDayData[item.en] = item.isActive);
+    });
+    setInputData({
+      ...inputData,
+      weekday: weekDayData,
+    });
   };
 
   const [addresscheck, setaddresscheck] = useState(false);
   const nameChange = e => {
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        address: e.target.value,
+      },
+    });
     if (e.target.value.length > 0) {
       setaddresscheck(true);
     } else {
