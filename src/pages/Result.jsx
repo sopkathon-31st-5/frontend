@@ -18,7 +18,7 @@ function Result() {
     copyLinkRef.current.select();
 
     navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
-      alert('링크를 복사했습니다.');
+      // alert('링크를 복사했습니다.');
     });
   };
 
@@ -66,15 +66,15 @@ const StImgWrapper = styled.section`
 `;
 
 const StButtonWrapper = styled.footer`
-  width: 375px;
+  width: 370px;
   position: fixed;
   z-index: 3;
-  margin: -120px 7px 0 8px;
+  margin: -120px 0 0 0;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* align-items: stretch; */
+  align-items: center;
   width: 375px;
   height: 208px;
   padding-top: 16;
