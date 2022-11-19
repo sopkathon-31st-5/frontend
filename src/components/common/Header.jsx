@@ -70,6 +70,7 @@ const StTitle = styled.h1`
   line-height: 29px;
   text-align: center;
   color: #292929;
+  white-space: pre-line;
 `;
 
 const StDescription = styled.p`
@@ -81,4 +82,5 @@ const StDescription = styled.p`
   text-align: center;
   margin-top: 1.6rem;
   color: #292929;
+  white-space: pre-line;
 `;

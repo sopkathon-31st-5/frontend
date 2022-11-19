@@ -1,7 +1,8 @@
 export const HeaderText = {
   LOGIN: {
     title: '로그인',
-    description: '명함을 만들기 전 사장님에 대해 알려주세요',
+    description: `명함 생성을 위해 성함과 전화번호를 입력해주세요.
+    이 정보는 추후 수정을 위해 기록됩니다.`,
   },
   SHOP_CATEGORY: {
     title: '명함 제작',
