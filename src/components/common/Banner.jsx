@@ -3,6 +3,7 @@ import { BannerText } from '../../constants';
 import styled from 'styled-components';
 
 // type step= 'LOGIN' | 'SHOP_CATEGORY' | 'SHOP_DETAIL' | 'SHOP_ENVIRONMENT' | 'SHOP_IMAGE'
+// SHOP_IMAGE 스텝에서만 isOption이 true여야 합니다.
 function Banner({ step, isOption = false }) {
   return (
     <StBanner isOption={isOption}>

@@ -5,6 +5,8 @@ import { getPreviousStep } from '../../utils';
 import PreviousButton from '../../assets/icon/btn_back.svg';
 
 // type step= 'LOGIN' | 'SHOP_CATEGORY' | 'SHOP_DETAIL' | 'SHOP_ENVIRONMENT' | 'SHOP_IMAGE'
+// isPreviousbutton 버튼이 있는 경우엔 true를 보냅니다
+// isPreviousbutton 버튼이 있는 경우엔 setStep 함수를 함께 보냅니다.
 function Header({ step, isPreviousbutton = false, setStep = () => {} }) {
   const handleClick = () => {
     setStep(getPreviousStep(step));
