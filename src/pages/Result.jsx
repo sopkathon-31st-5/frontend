@@ -1,7 +1,11 @@
 import React from 'react';
+import Card from '../components/Card';
+import { useRecoilValue } from 'recoil';
+import userData from '../states/atom/userData';
 
 function Result() {
-  return <div>Result</div>;
+  const userDataList = useRecoilValue(userData);
+  return <Card userDataList={userDataList} />;
 }
 
 export default Result;
