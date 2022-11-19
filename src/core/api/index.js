@@ -12,7 +12,15 @@ export const getShopData = async () => {
   return data?.data;
 };
 
-export const postSignUp = async () => {
-  const data = await client.post('/auth/signup');
+export const postSignUp = async (email, password) => {
+  const data = await client.post('/auth/signup', {
+    email,
+    name: '김김김',
+    nickname: '김13',
+    password,
+    passwordConfirm: password,
+    themePreference: ['힙한', '모던한', '아기자기한'],
+  });
+  console.log('회원가입 결과 데이터', data);
   return data?.data;
 };

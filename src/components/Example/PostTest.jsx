@@ -1,8 +1,8 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import ErrorBoundary from '../common/ErrorBoundary';
 import CommonError from '../common/CommonError';
 import { ClipLoader } from 'react-spinners';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { postSignUp } from '../../core/api';
 
 function PostTest() {
@@ -18,12 +18,22 @@ function PostTest() {
 }
 
 const Resolved = () => {
-  // const { data } = useQuery('shop', () => postSignUp(), {
-  //   suspense: true,
-  // });
-  // useEffect(() => {
-  //   console.log('data', data);
-  // }, []);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const { mutate } = useMutation(postSignUp(emailRef.current?.value, passwordRef.current?.value));
+
+  const handleClick = () => {
+    mutate();
+  };
+
+  return (
+    <>
+      <input placeholder="이메일" ref={emailRef} />
+      <input placeholder="비번" ref={passwordRef} />
+      <button onClick={handleClick}>회원가입</button>
+    </>
+  );
 };
 
 export default PostTest;
