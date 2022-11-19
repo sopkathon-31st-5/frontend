@@ -7,6 +7,7 @@ function ShopDetail2() {
   // 배달 가능 여부
   const [toggle, setToggle] = useState(false);
   const [isDeliveryClicked, setIsDeliveryClicked] = useState(false);
+  const [checkedDay, setcheckedDay] = useState(false);
   const [daysNew, setDaysNew] = useState([
     { week: '월', isActive: false },
     { week: '화', isActive: false },
@@ -31,15 +32,17 @@ function ShopDetail2() {
     const idx = e.currentTarget.id;
     let copyDay = [...daysNew];
     copyDay[idx].isActive = !copyDay[idx].isActive;
+    setcheckedDay(true);
     setDaysNew(copyDay);
+    console.log(daysNew);
   };
 
-  const [namecheck, setnamecheck] = useState(false);
+  const [addresscheck, setaddresscheck] = useState(false);
   const nameChange = e => {
     if (e.target.value.length > 0) {
-      setnamecheck(true);
+      setaddresscheck(true);
     } else {
-      setnamecheck(false);
+      setaddresscheck(false);
     }
   };
   console.log('daysNew', daysNew);
@@ -50,39 +53,31 @@ function ShopDetail2() {
         <Styled.InputText>주소</Styled.InputText>
         <div style={{ height: '5rem' }}>
           <Styled.DetailInput onChange={e => nameChange(e)} placeholder="주소"></Styled.DetailInput>
-          <Styled.Ischecked src={namecheck ? checked_icon : unchecked_icon} />
+          <Styled.Ischecked src={addresscheck ? unchecked_icon : checked_icon} />
         </div>
       </Styled.InputDiv>
 
       <StDeliveryCheck>
-        <Styled.InputText>택배가능여부</Styled.InputText>
+        <Styled.longInputText>택배가능여부</Styled.longInputText>
         <input type="checkbox" id="toggle" hidden />
         <label htmlFor="toggle" className="toggleswitch">
           {toggle ? (
             <>
-              <span
-                className="toggleYes"
-                onClick={handleYes}
-                style={{ backgroundColor: '#0BE600' }}
-              >
+              <div className="toggleYes" onClick={handleYes} style={{ backgroundColor: '#0BE600' }}>
                 예
-              </span>
-              <span className="toggleNo" onClick={handleNo} style={{ backgroundColor: '#EAEAEA' }}>
+              </div>
+              <div className="toggleNo" onClick={handleNo} style={{ backgroundColor: '#EAEAEA' }}>
                 아니오
-              </span>
+              </div>
             </>
           ) : (
             <>
-              <span
-                className="toggleYes"
-                onClick={handleYes}
-                style={{ backgroundColor: '#EAEAEA' }}
-              >
+              <div className="toggleYes" onClick={handleYes} style={{ backgroundColor: '#EAEAEA' }}>
                 예
-              </span>
-              <span className="toggleNo" onClick={handleNo} style={{ backgroundColor: '#FF3333' }}>
+              </div>
+              <div className="toggleNo" onClick={handleNo} style={{ backgroundColor: '#FF3333' }}>
                 아니오
-              </span>
+              </div>
             </>
           )}
         </label>
@@ -91,23 +86,24 @@ function ShopDetail2() {
       <hr />
       <StWorkDays>
         <div>
-          <Styled.InputText>영업요일</Styled.InputText>
-          <StCheck src={checked_icon} alt="체크버튼" />
+          <Styled.InputText2>영업요일</Styled.InputText2>
+          <StCheck src={checkedDay ? unchecked_icon : checked_icon} alt="체크버튼" />
         </div>
-        <input type="checkbox" id="0" hidden />
-        <input type="checkbox" id="1" hidden />
-        <input type="checkbox" id="2" hidden />
-        <input type="checkbox" id="3" hidden />
-        <input type="checkbox" id="4" hidden />
-        <input type="checkbox" id="5" hidden />
-        <input type="checkbox" id="6" hidden />
+        <div style={{ display: 'flex', marginTop: '2.4rem' }}>
+          <input type="checkbox" id="0" hidden />
+          <input type="checkbox" id="1" hidden />
+          <input type="checkbox" id="2" hidden />
+          <input type="checkbox" id="3" hidden />
+          <input type="checkbox" id="4" hidden />
+          <input type="checkbox" id="5" hidden />
+          <input type="checkbox" id="6" hidden />
 
-        {daysNew.map((day, idx) => (
-          <label htmlFor={idx} onClick={toggleActive} key={day.week} id={idx}>
-            <StDayCircle isActive={day.isActive}>{day.week}</StDayCircle>
-          </label>
-        ))}
-
+          {daysNew.map((day, idx) => (
+            <label htmlFor={idx} onClick={toggleActive} key={day.week} id={idx}>
+              <StDayCircle isActive={day.isActive}>{day.week}</StDayCircle>
+            </label>
+          ))}
+        </div>
         {/* <input type="checkbox" id="choose-days" hidden />
         <label for="choose-days" className="choosing-days">
           {days.map((day, idx) => (
@@ -123,7 +119,6 @@ function ShopDetail2() {
           ))}
         </label> */}
       </StWorkDays>
-      <button type="button">확인</button>
     </StShopDetailWrapper>
   );
 }
@@ -172,26 +167,53 @@ const StDeliveryCheck = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding-left: 24px;
+  margin-top: 2rem;
+  padding: 0 2.4rem 0 2.4rem;
 
   & > label.toggleswitch {
-    width: 122px;
+    width: 12.2rem;
     height: 35px;
+    display: flex;
   }
 
-  & > label > span.toggleYes {
+  & > label > div.toggleYes {
     width: 50%;
     border-radius: 5px 0px 0px 5px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     cursor: pointer;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+
+    /* 시장에가면/707070 */
+
+    color: #707070;
   }
 
-  & > label > span.toggleNo {
+  & > label > div.toggleNo {
     width: 50%;
     border-radius: 0px 5px 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
 
+    /* 시장에가면/707070 */
+
+    color: #707070;
     position: relative;
     cursor: pointer;
   }
@@ -204,11 +226,16 @@ const StDayCircle = styled.div`
 
   width: 42px;
   height: 42px;
-
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
   border: 1px solid transparent;
   border-radius: 20px;
-
-  background: ${({ isActive }) => (isActive ? '#338bff' : 'grey')};
+  margin-right: 0.8rem;
+  color: ${({ isActive }) => (isActive ? 'white' : '#B1B1B1')};
+  background: ${({ isActive }) => (isActive ? '#338bff' : '#EAEAEA')};
 
   cursor: pointer;
 `;
@@ -216,8 +243,8 @@ const StDayCircle = styled.div`
 const StWorkDays = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 0 28px 0 24px;
-
+  padding: 0 2.4rem 0 2.4rem;
+  margin-top: 1.4rem;
   & > div:nth-child(1) {
     display: flex;
     justify-content: space-between;
@@ -264,18 +291,42 @@ const Styled = {
     line-height: 1.9rem;
     padding-right: 1.6rem;
     width: 8rem;
+    color: #707070;
+    text-align: left;
+    padding-left: 2.4rem;
+  `,
+  InputText2: styled.div`
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    padding-right: 1.6rem;
+    width: 8rem;
+    color: #707070;
+    text-align: left;
   `,
   DetailInput: styled.input.attrs({ type: 'text' })`
     height: 5rem;
     background: #eaeaea;
     border-radius: 5px;
     border: none;
-    width: 26rem;
+    width: 28.7rem;
     padding-left: 1.4rem;
   `,
   Ischecked: styled.img`
     position: relative;
-    bottom: 3.6rem;
-    right: 1.4rem;
+    bottom: 3.5rem;
+    right: 2.4rem;
+  `,
+  longInputText: styled.div`
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    padding-right: 1.6rem;
+    width: 10rem;
+    color: #707070;
   `,
 };
