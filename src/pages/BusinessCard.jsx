@@ -1,7 +1,8 @@
 import React from 'react';
+import ShopDeatial1 from '../components/businessCard/ShopDetail1';
 
 function BusinessCard() {
-  return <div>BusinessCard</div>;
+  return <ShopDeatial1 />;
 }
 
 export default BusinessCard;
