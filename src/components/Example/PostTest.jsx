@@ -21,7 +21,12 @@ const Resolved = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const { mutate } = useMutation(postSignUp(emailRef.current?.value, passwordRef.current?.value));
+  const { mutate } = useMutation({
+    mutationFn: () => {
+      postSignUp(emailRef.current?.value, passwordRef.current?.value);
+    },
+    suspense: true,
+  });
 
   const handleClick = () => {
     mutate();
