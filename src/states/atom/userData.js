@@ -6,7 +6,7 @@ const userData = atom({
       name: '',
     },
     card: {
-      id: null,
+      id: 1,
       name: '',
       telNumber: '',
       introduce: '',
