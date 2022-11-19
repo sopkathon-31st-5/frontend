@@ -2,24 +2,27 @@ import { atom } from 'recoil';
 const userData = atom({
   key: 'userdata',
   default: {
+    userName: {
+      name: '',
+    },
     card: {
-      id: 6,
-      name: 'asdf',
-      telNumber: 'asdf',
-      introduce: 'asdf',
-      isDeliver: true,
-      imageURL: 'asdf',
-      type: 1,
-      address: 'asdf',
+      id: null,
+      name: '',
+      telNumber: '',
+      introduce: '',
+      isDeliver: false,
+      imageURL: null,
+      type: null,
+      address: '',
     },
     weekday: {
       sun: false,
-      mon: true,
+      mon: false,
       tue: false,
       wed: false,
       thu: false,
       fri: false,
-      sat: true,
+      sat: false,
     },
   },
 });

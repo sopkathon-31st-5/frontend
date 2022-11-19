@@ -14,6 +14,8 @@ function Card(userDataList) {
   const workDaysList = userDataList.userDataList.weekday;
   console.log(workDaysList['mon']);
 
+  const userName = userDataList.userDataList.userName.name;
+
   const typeList = [
     { id: 1, text: '과일 가게' },
     { id: 2, text: '정육점' },
@@ -41,7 +43,7 @@ function Card(userDataList) {
           {cardData.card.isDeliver ? <h1>택배 가능합니다!</h1> : <h1>택배 불가능합니다!</h1>}
         </div>
         <div className="personalTel">
-          <h1>사장님 성함</h1>
+          <h1>{userName}</h1>
           <h1>{cardData.card.telNumber}</h1>
         </div>
 
@@ -68,6 +70,7 @@ const StImg = styled.div`
 `;
 
 const StCard = styled.div`
+  width: 300px;
   padding-left: 60px;
   position: absolute;
   margin-top: -435px;
