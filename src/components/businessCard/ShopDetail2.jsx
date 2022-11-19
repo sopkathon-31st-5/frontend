@@ -1,24 +1,75 @@
 import styled from 'styled-components';
-import Check from '../../assets/icon/ic_check.svg';
+import checked_icon from '../../assets/icon/ic_inputChecked.svg';
+import unchecked_icon from '../../assets/icon/ic_inputUnchecked.svg';
 import { useState } from 'react';
 
 function ShopDetail2() {
-  const days = ['월', '화', '수', '목', '금', '토', '일'];
+  // 배달 가능 여부
   const [toggle, setToggle] = useState(false);
+  const [isDeliveryClicked, setIsDeliveryClicked] = useState(false);
 
   const handleYes = () => {
     setToggle(true);
+    setIsDeliveryClicked(true);
+    console.log(isDeliveryClicked);
   };
   const handleNo = () => {
     setToggle(false);
+    setIsDeliveryClicked(true);
+  };
+
+  // 날짜 선택
+  const days = ['월', '화', '수', '목', '금', '토', '일'];
+  const [daysNew, setDaysNew] = useState([
+    { week: '월', isActive: false },
+    {week: '화', isActive: false},
+    {week: '수', isActive: false},
+    {week: '목', isActive: false},
+    {week: '금', isActive: false},
+    {week: '토', isActive: false},
+    {week: '일', isActive: false},
+  ])
+  const [activeIndex, setActiveIndex] = useState([]);
+  let [btnActive, setBtnActive] = useState([false, false, false, false, false, false, false]);
+
+  // const toggleActive = e => {
+  //   setBtnActive(prev => {
+  //     return !prev;
+  //   });
+  //   console.log(btnActive);
+  // };
+  const toggleActive = (e) => {
+    const idx = e.currentTarget.id;
+    let copyDay = [...daysNew]
+    copyDay[idx].isActive = true;
+    setDaysNew(copyDay)
+    // const copyArr = [...activeIndex];
+    // copyArr.push(idx);
+    // setActiveIndex(copyArr);
+    // setBtnActive(!btnActive[idx]);
+  };
+
+  const [namecheck, setnamecheck] = useState(false);
+  const nameChange = e => {
+    if (e.target.value.length > 0) {
+      setnamecheck(true);
+    } else {
+      setnamecheck(false);
+    }
   };
 
   return (
     <StShopDetailWrapper>
-      <input type="text" placeholder="주소" />
-      <StCheck src={Check} alt="체크버튼" />
+      <Styled.InputDiv>
+        <Styled.InputText>주소</Styled.InputText>
+        <div style={{ height: '5rem' }}>
+          <Styled.DetailInput onChange={e => nameChange(e)} placeholder="주소"></Styled.DetailInput>
+          <Styled.Ischecked src={namecheck ? checked_icon : unchecked_icon} />
+        </div>
+      </Styled.InputDiv>
+
       <StDeliveryCheck>
-        <h1>택배가능여부</h1>
+        <Styled.InputText>택배가능여부</Styled.InputText>
         <input type="checkbox" id="toggle" hidden />
         <label for="toggle" className="toggleswitch">
           {toggle ? (
@@ -49,19 +100,52 @@ function ShopDetail2() {
             </>
           )}
         </label>
-        <StCheck src={Check} alt="체크버튼" />
+        <StCheck src={!isDeliveryClicked ? checked_icon : unchecked_icon} />
       </StDeliveryCheck>
       <hr />
       <StWorkDays>
         <div>
-          <h1>영업요일</h1>
-          <StCheck src={Check} alt="체크버튼" />
+          <Styled.InputText>영업요일</Styled.InputText>
+          <StCheck src={checked_icon} alt="체크버튼" />
         </div>
-        <div>
-          {days.map((day, index) => (
-            <StDayCircle key={index}>{day}</StDayCircle>
+        <input type="checkbox" id="0" hidden />
+        <input type="checkbox" id="1" hidden />
+        <input type="checkbox" id="2" hidden />
+        <input type="checkbox" id="3" hidden />
+        <input type="checkbox" id="4" hidden />
+        <input type="checkbox" id="5" hidden />
+        <input type="checkbox" id="6" hidden />
+        {/* 
+day.isActive?  return <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
+          <StDayCircle>{day.week}</StDayCircle>:           return <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
+          <StDayCircle>{day.week}</StDayCircle>
+        </label>
+        */}
+        
+        {daysNew.map((day, idx) => {
+          day.isActive ? ( return <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
+              <StDayCircle>{day.week}</StDayCircle>
+            </label>
+          ) : (
+            <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
+              <StDayCircle>{day.week}</StDayCircle>
+            </label>
+          })}
+        
+        {/* <input type="checkbox" id="choose-days" hidden />
+        <label for="choose-days" className="choosing-days">
+          {days.map((day, idx) => (
+            <>
+              <StDayCircle
+                value={idx}
+                className={idx == btnActive ? 'active' : ''}
+                onClick={toggleActive}
+              >
+                {day}
+              </StDayCircle>
+            </>
           ))}
-        </div>
+        </label> */}
       </StWorkDays>
       <button type="button">확인</button>
     </StShopDetailWrapper>
@@ -86,22 +170,52 @@ const StShopDetailWrapper = styled.section`
   }
 `;
 
+const StAddress = styled.section`
+  display: flex;
+  align-items: center;
+
+  padding-left: 24px;
+
+  & input {
+    width: 287px;
+    height: 50px;
+
+    margin-left: 18px;
+
+    background: #eaeaea;
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    & .checkButton {
+      margin-left: -28px;
+    }
+  }
+`;
+
 const StDeliveryCheck = styled.section`
   display: flex;
   justify-content: space-between;
-  width: 122px;
-  height: 35px;
+  align-items: center;
 
-  & > span.toggleYes {
+  padding-left: 24px;
+
+  & > label.toggleswitch {
+    width: 122px;
+    height: 35px;
+  }
+
+  & > label > span.toggleYes {
     width: 50%;
-    border-radius: 0px 5px 5px 0px;
+    border-radius: 5px 0px 0px 5px;
+
     position: relative;
     cursor: pointer;
   }
 
-  & > span.toggleNo {
+  & > label > span.toggleNo {
     width: 50%;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 0px 5px 5px 0px;
+
     position: relative;
     cursor: pointer;
   }
@@ -119,22 +233,77 @@ const StDayCircle = styled.div`
   border-radius: 20px;
 
   background-color: grey;
+
+  cursor: pointer;
+
+  & .active {
+    background-color: #338bff;
+  }
 `;
 
 const StWorkDays = styled.section`
   display: flex;
   flex-direction: column;
+  padding: 0 28px 0 24px;
+
   & > div:nth-child(1) {
     display: flex;
     justify-content: space-between;
-
-    width: 375px;
-    height: 25px;
+    align-items: center;
   }
-  & > div:nth-child(2) {
+  & > label {
     display: flex;
     justify-content: space-between;
-
-    width: 375px;
+    align-items: center;
   }
 `;
+
+const Styled = {
+  ShopDetail1: styled.section``,
+
+  InfoText: styled.div`
+    height: 4.6rem;
+    background-color: #338bff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    color: white;
+    padding: 1.4rem 11.1rem 1.3rem 3.7rem;
+  `,
+  InputList: styled.div`
+    padding: 0 1.6rem 0 1.6rem;
+    margin-top: 2rem;
+  `,
+  InputDiv: styled.div`
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    margin-bottom: 1.2rem;
+    text-align: right;
+  `,
+  InputText: styled.div`
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    padding-right: 1.6rem;
+    width: 8rem;
+  `,
+  DetailInput: styled.input.attrs({ type: 'text' })`
+    height: 5rem;
+    background: #eaeaea;
+    border-radius: 5px;
+    border: none;
+    width: 26rem;
+    padding-left: 1.4rem;
+  `,
+  Ischecked: styled.img`
+    position: relative;
+    bottom: 3.6rem;
+    right: 1.4rem;
+  `,
+};
