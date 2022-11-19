@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import camera from '../../assets/icon/ic_camera.svg';
 import { uploadImage } from '../../utils/uploadimage';
+import Button from '../common/Button';
 function ShopMap() {
+  const navigate = useNavigate();
   const { photo } = useRef(null);
   const [loading, setloading] = useState(false);
   const [photourl, setphotourl] = useState('');
@@ -25,6 +28,10 @@ function ShopMap() {
     });
   };
 
+  const handleClick = () => {
+    navigate('/result');
+  };
+
   return (
     <Styled.ShopMap>
       {loading ? <Styled.Loading>이미지 로딩중입니다..</Styled.Loading> : null}
@@ -36,6 +43,9 @@ function ShopMap() {
         가게 사진과 영상등으로 <br />
         가게를 소개해주세요!
       </Styled.ShopText>
+      <Button className="button" onClick={handleClick}>
+        완료하기
+      </Button>
     </Styled.ShopMap>
   );
 }
@@ -59,6 +69,9 @@ const Styled = {
     flex-direction: column;
     align-items: center;
     margin-top: 7.1rem;
+    & .button {
+      margin-top: 100px;
+    }
   `,
   ShopInfo: styled.div``,
   PhotoInput: styled.input.attrs({ type: 'file' })`

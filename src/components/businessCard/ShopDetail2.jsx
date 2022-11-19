@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import checked_icon from '../../assets/icon/ic_inputChecked.svg';
 import unchecked_icon from '../../assets/icon/ic_inputUnchecked.svg';
 import { useState } from 'react';
+import Button from '../common/Button';
 
-function ShopDetail2() {
+function ShopDetail2({ setStep }) {
   // 배달 가능 여부
   const [toggle, setToggle] = useState(false);
   const [isDeliveryClicked, setIsDeliveryClicked] = useState(false);
@@ -17,6 +18,10 @@ function ShopDetail2() {
     { week: '토', isActive: false },
     { week: '일', isActive: false },
   ]);
+
+  const handleClick = () => {
+    setStep('SHOP_IMAGE');
+  };
 
   const handleYes = () => {
     setToggle(true);
@@ -53,7 +58,7 @@ function ShopDetail2() {
         <Styled.InputText>주소</Styled.InputText>
         <div style={{ height: '5rem' }}>
           <Styled.DetailInput onChange={e => nameChange(e)} placeholder="주소"></Styled.DetailInput>
-          <Styled.Ischecked src={addresscheck ? unchecked_icon : checked_icon} />
+          <Styled.Ischecked src={addresscheck ? checked_icon : unchecked_icon} />
         </div>
       </Styled.InputDiv>
 
@@ -81,13 +86,13 @@ function ShopDetail2() {
             </>
           )}
         </label>
-        <StCheck src={!isDeliveryClicked ? checked_icon : unchecked_icon} />
+        <StCheck src={isDeliveryClicked ? checked_icon : unchecked_icon} />
       </StDeliveryCheck>
       <hr />
       <StWorkDays>
         <div>
           <Styled.InputText2>영업요일</Styled.InputText2>
-          <StCheck src={checkedDay ? unchecked_icon : checked_icon} alt="체크버튼" />
+          <StCheck src={checkedDay ? checked_icon : unchecked_icon} alt="체크버튼" />
         </div>
         <div style={{ display: 'flex', marginTop: '2.4rem' }}>
           <input type="checkbox" id="0" hidden />
@@ -119,6 +124,13 @@ function ShopDetail2() {
           ))}
         </label> */}
       </StWorkDays>
+      <Button
+        onClick={handleClick}
+        className="button"
+        disabled={!isDeliveryClicked || !toggle || !checkedDay}
+      >
+        다음으로
+      </Button>
     </StShopDetailWrapper>
   );
 }
@@ -134,6 +146,11 @@ const StShopDetailWrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 20px;
+  & .button {
+    margin-left: 16px;
+    margin-top: 150px;
+  }
 
   & > section.workDays {
     display: flex;
