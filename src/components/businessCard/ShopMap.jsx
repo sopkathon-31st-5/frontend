@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import camera from '../../assets/icon/ic_camera.svg';
 import { uploadImage } from '../../utils/uploadimage';
 import Button from '../common/Button';
+import { postProfilData } from '../../core/api';
+import { useRecoilState } from 'recoil';
+import userData from '../../states/atom/userData';
 function ShopMap() {
   const navigate = useNavigate();
   const { photo } = useRef(null);
   const [loading, setloading] = useState(false);
   const [photourl, setphotourl] = useState('');
+  const [inputData, setInputData] = useRecoilState(userData);
   const photoChange = async e => {
     const files = e?.target?.files && e.target.files[0];
     setloading(true);
@@ -28,8 +32,26 @@ function ShopMap() {
     });
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     navigate('/result');
+    const result = await postProfilData(
+      inputData.card.name,
+      inputData.card.telNumber,
+      inputData.card.introduce,
+      inputData.card.isDeliver,
+      inputData.card.imageURL,
+      inputData.card.address,
+      [
+        inputData.weekday.sun,
+        inputData.weekday.mon,
+        inputData.weekday.tue,
+        inputData.weekday.wed,
+        inputData.weekday.thu,
+        inputData.weekday.fri,
+        inputData.weekday.sat,
+      ],
+    );
+    console.log('result', result);
   };
 
   return (
