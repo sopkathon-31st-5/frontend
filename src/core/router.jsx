@@ -5,6 +5,7 @@ import Login from '../pages/Login';
 import BusinessCard from '../pages/BusinessCard';
 import Result from '../pages/Result';
 import Qrcode from '../pages/Qrcode';
+import UserCard from '../pages/UserCard';
 
 function Router() {
   return (
@@ -15,6 +16,7 @@ function Router() {
         <Route path="/make_business_card" element={<BusinessCard />} />
         <Route path="/result" element={<Result />} />
         <Route path="/QRview" element={<Qrcode />} />
+        <Route path="/usercard/:id" element={<UserCard></UserCard>} />
       </Routes>
     </BrowserRouter>
   );
