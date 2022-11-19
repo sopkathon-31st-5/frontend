@@ -24,3 +24,18 @@ export const postSignUp = async (email, password) => {
   console.log('회원가입 결과 데이터', data);
   return data?.data;
 };
+
+const REAL_URL = 'http://43.201.139.211:3000';
+
+export const postProfilData = async (email, password) => {
+  const data = await client.post('/3', {
+    email,
+    name: '김김김',
+    nickname: '김13',
+    password,
+    passwordConfirm: password,
+    themePreference: ['힙한', '모던한', '아기자기한'],
+  });
+  console.log('회원가입 결과 데이터', data);
+  return data?.data;
+};

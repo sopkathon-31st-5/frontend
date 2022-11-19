@@ -24,7 +24,7 @@ function ShopDeatial1({ setStep }) {
         name: e.target.value,
       },
     });
-    if (e.target.value.length > 0) {
+    if (e.target.value.length > 0 || inputData?.userName?.name > 0) {
       setnamecheck(true);
     } else {
       setnamecheck(false);
@@ -52,7 +52,10 @@ function ShopDeatial1({ setStep }) {
         telNumber: e.target.value,
       },
     });
-    if (e.target.value.length > 0 && !isNaN(e.target.value)) {
+    if (
+      (e.target.value.length > 0 && !isNaN(e.target.value)) ||
+      inputData?.card?.telNumber.length > 0
+    ) {
       setcallnumcheck(true);
     } else {
       setcallnumcheck(false);

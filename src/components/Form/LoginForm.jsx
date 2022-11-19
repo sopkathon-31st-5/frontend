@@ -27,7 +27,11 @@ function LoginForm({ user, phoneNumber, setPhoneNumber, setUser }) {
             placeholder="전화번호 (-없이 입력)"
             value={phoneNumber}
           />
-          <StIschecked src={phoneNumber.length > 0 ? checked_icon : unchecked_icon} />
+          <StIschecked
+            src={
+              phoneNumber.length > 0 && !isNaN(Number(phoneNumber)) ? checked_icon : unchecked_icon
+            }
+          />
         </StInputDiv>
       </StInputList>
     </StForm>
