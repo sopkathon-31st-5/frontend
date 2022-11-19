@@ -31,7 +31,7 @@ function ShopDeatial1() {
     }
   };
   const detailChange = e => {
-    if (e.target.value.length > 0) {
+    if (e.target.value.length > 0 && e.target.value.length <= 40) {
       setdetailcheck(true);
     } else {
       setdetailcheck(false);
