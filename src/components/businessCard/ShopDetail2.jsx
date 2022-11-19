@@ -7,6 +7,15 @@ function ShopDetail2() {
   // 배달 가능 여부
   const [toggle, setToggle] = useState(false);
   const [isDeliveryClicked, setIsDeliveryClicked] = useState(false);
+  const [daysNew, setDaysNew] = useState([
+    { week: '월', isActive: false },
+    { week: '화', isActive: false },
+    { week: '수', isActive: false },
+    { week: '목', isActive: false },
+    { week: '금', isActive: false },
+    { week: '토', isActive: false },
+    { week: '일', isActive: false },
+  ]);
 
   const handleYes = () => {
     setToggle(true);
@@ -18,35 +27,11 @@ function ShopDetail2() {
     setIsDeliveryClicked(true);
   };
 
-  // 날짜 선택
-  const days = ['월', '화', '수', '목', '금', '토', '일'];
-  const [daysNew, setDaysNew] = useState([
-    { week: '월', isActive: false },
-    {week: '화', isActive: false},
-    {week: '수', isActive: false},
-    {week: '목', isActive: false},
-    {week: '금', isActive: false},
-    {week: '토', isActive: false},
-    {week: '일', isActive: false},
-  ])
-  const [activeIndex, setActiveIndex] = useState([]);
-  let [btnActive, setBtnActive] = useState([false, false, false, false, false, false, false]);
-
-  // const toggleActive = e => {
-  //   setBtnActive(prev => {
-  //     return !prev;
-  //   });
-  //   console.log(btnActive);
-  // };
-  const toggleActive = (e) => {
+  const toggleActive = e => {
     const idx = e.currentTarget.id;
-    let copyDay = [...daysNew]
-    copyDay[idx].isActive = true;
-    setDaysNew(copyDay)
-    // const copyArr = [...activeIndex];
-    // copyArr.push(idx);
-    // setActiveIndex(copyArr);
-    // setBtnActive(!btnActive[idx]);
+    let copyDay = [...daysNew];
+    copyDay[idx].isActive = !copyDay[idx].isActive;
+    setDaysNew(copyDay);
   };
 
   const [namecheck, setnamecheck] = useState(false);
@@ -57,6 +42,7 @@ function ShopDetail2() {
       setnamecheck(false);
     }
   };
+  console.log('daysNew', daysNew);
 
   return (
     <StShopDetailWrapper>
@@ -71,7 +57,7 @@ function ShopDetail2() {
       <StDeliveryCheck>
         <Styled.InputText>택배가능여부</Styled.InputText>
         <input type="checkbox" id="toggle" hidden />
-        <label for="toggle" className="toggleswitch">
+        <label htmlFor="toggle" className="toggleswitch">
           {toggle ? (
             <>
               <span
@@ -115,23 +101,13 @@ function ShopDetail2() {
         <input type="checkbox" id="4" hidden />
         <input type="checkbox" id="5" hidden />
         <input type="checkbox" id="6" hidden />
-        {/* 
-day.isActive?  return <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
-          <StDayCircle>{day.week}</StDayCircle>:           return <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
-          <StDayCircle>{day.week}</StDayCircle>
-        </label>
-        */}
-        
-        {daysNew.map((day, idx) => {
-          day.isActive ? ( return <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
-              <StDayCircle>{day.week}</StDayCircle>
-            </label>
-          ) : (
-            <label for={idx} onClick={toggleActive} key={day.week} id={idx}>
-              <StDayCircle>{day.week}</StDayCircle>
-            </label>
-          })}
-        
+
+        {daysNew.map((day, idx) => (
+          <label htmlFor={idx} onClick={toggleActive} key={day.week} id={idx}>
+            <StDayCircle isActive={day.isActive}>{day.week}</StDayCircle>
+          </label>
+        ))}
+
         {/* <input type="checkbox" id="choose-days" hidden />
         <label for="choose-days" className="choosing-days">
           {days.map((day, idx) => (
@@ -232,13 +208,9 @@ const StDayCircle = styled.div`
   border: 1px solid transparent;
   border-radius: 20px;
 
-  background-color: grey;
+  background: ${({ isActive }) => (isActive ? '#338bff' : 'grey')};
 
   cursor: pointer;
-
-  & .active {
-    background-color: #338bff;
-  }
 `;
 
 const StWorkDays = styled.section`
