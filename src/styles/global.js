@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     -moz-appearance: none;
     appearance: none;
     background-color: transparent; 
+    border: none;
   }
 `;
 
