@@ -15,6 +15,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     font-size: 10px; 
   }
+  button{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent; 
+  }
 `;
 
 export default GlobalStyle;
