@@ -29,7 +29,7 @@ const StTitle = styled.h2`
   font-size: 16px;
   line-height: 19px;
   /* identical to box height */
+  color: ${({ isOption }) => (isOption ? '#000000' : '#ffffff')};
 
-  color: #ffffff;
   margin-left: 37px;
 `;
