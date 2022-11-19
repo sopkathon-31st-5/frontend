@@ -16,6 +16,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 10px; 
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
+  #root{
+    height: 100%;
+  }
   button{
     -webkit-appearance: none;
     -moz-appearance: none;
