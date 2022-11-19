@@ -20,3 +20,11 @@ export const HeaderText = {
     description: '가게에 대한 정보를 알려주세요',
   },
 };
+
+export const BannerText = {
+  LOGIN: '반갑습니다 사장님 :)',
+  SHOP_CATEGORY: '무엇을 파시나요?',
+  SHOP_DETAIL: '가게의 상세정보를 알려주세요 (1/2)',
+  SHOP_ENVIRONMENT: '가게의 상세정보를 알려주세요 (2/2)',
+  SHOP_IMAGE: '가게의 위치를 알려주세요 (옵션)',
+};

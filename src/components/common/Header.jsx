@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { getPreviousStep } from '../../utils';
 import PreviousButton from '../../assets/icon/btn_back.svg';
 
-// interface
-function Header({ type, isPreviousbutton = false, setStep = () => {} }) {
+// type step= 'LOGIN' | 'SHOP_CATEGORY' | 'SHOP_DETAIL' | 'SHOP_ENVIRONMENT' | 'SHOP_IMAGE'
+function Header({ step, isPreviousbutton = false, setStep = () => {} }) {
   const handleClick = () => {
-    setStep(getPreviousStep(type));
+    setStep(getPreviousStep(step));
   };
   return (
     <StHeader>
@@ -22,10 +22,10 @@ function Header({ type, isPreviousbutton = false, setStep = () => {} }) {
         ) : (
           <div />
         )}
-        <StTitle>{HeaderText[type].title}</StTitle>
+        <StTitle>{HeaderText[step]?.title}</StTitle>
         <div />
       </StTitleBox>
-      <StDescription>{HeaderText[type].description}</StDescription>
+      <StDescription>{HeaderText[step]?.description}</StDescription>
     </StHeader>
   );
 }
@@ -38,6 +38,7 @@ const StHeader = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 1.8rem;
 `;
 
 const StPreviousButton = styled.img`
@@ -60,7 +61,7 @@ const StTitle = styled.h1`
   font-size: 24px;
   line-height: 29px;
   text-align: center;
-  color: #000000;
+  color: #292929;
 `;
 
 const StDescription = styled.p`
@@ -71,4 +72,5 @@ const StDescription = styled.p`
   line-height: 19px;
   text-align: center;
   margin-top: 1.6rem;
+  color: #292929;
 `;
