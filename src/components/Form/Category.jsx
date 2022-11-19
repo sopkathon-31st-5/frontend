@@ -8,8 +8,9 @@ import Ddak from '../../assets/image/i_ddak.svg';
 import Etc from '../../assets/image/i_etc.svg';
 import { useRecoilState } from 'recoil';
 import userData from '../../states/atom/userData';
+import Button from '../common/Button';
 
-function Category() {
+function Category({ setStep }) {
   const [inputData, setInputData] = useRecoilState(userData);
   const handleClick = e => {
     console.log('e', e.currentTarget.id);
@@ -77,6 +78,14 @@ function Category() {
       >
         <StImg src={Etc} alt="기타" />
       </StWrapper>
+      <Button
+        onClick={() => {
+          setStep('SHOP_DETAIL');
+        }}
+        className="button"
+      >
+        다음으로
+      </Button>
     </StMain>
   );
 }
@@ -88,13 +97,18 @@ const StMain = styled.main`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  flex-wrap: wrap;
+  & .button {
+    margin-top: 100px;
+  }
 `;
 const StWrapper = styled.div`
   border-radius: 5px;
   width: 165px;
   height: 165px;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 13px;
 
   ${({ isSelected }) =>

@@ -2,14 +2,28 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import checked_icon from '../../assets/icon/ic_inputChecked.svg';
 import unchecked_icon from '../../assets/icon/ic_inputUnchecked.svg';
+import Button from '../common/Button';
+import { useRecoilState } from 'recoil';
+import userData from '../../states/atom/userData';
 
-function ShopDeatial1() {
+function ShopDeatial1({ setStep }) {
   const [namecheck, setnamecheck] = useState(false);
   const [storecheck, setstorecheck] = useState(false);
   const [callnumcheck, setcallnumcheck] = useState(false);
   const [detailcheck, setdetailcheck] = useState(false);
-
+  const [inputData, setInputData] = useRecoilState(userData);
+  const handleClick = () => {
+    setStep('SHOP_ENVIRONMENT');
+  };
   const nameChange = e => {
+    // TODO 가게 이름 아닌 유저 이름으로 바꾸기
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        name: e.target.value,
+      },
+    });
     if (e.target.value.length > 0) {
       setnamecheck(true);
     } else {
@@ -17,6 +31,13 @@ function ShopDeatial1() {
     }
   };
   const storeChange = e => {
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        name: e.target.value,
+      },
+    });
     if (e.target.value.length > 0) {
       setstorecheck(true);
     } else {
@@ -24,6 +45,13 @@ function ShopDeatial1() {
     }
   };
   const callnumChange = e => {
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        telNumber: e.target.value,
+      },
+    });
     if (e.target.value.length > 0 && !isNaN(e.target.value)) {
       setcallnumcheck(true);
     } else {
@@ -31,6 +59,13 @@ function ShopDeatial1() {
     }
   };
   const detailChange = e => {
+    setInputData({
+      ...inputData,
+      card: {
+        ...inputData.card,
+        introduce: e.target.value,
+      },
+    });
     if (e.target.value.length > 0 && e.target.value.length <= 40) {
       setdetailcheck(true);
     } else {
@@ -40,7 +75,6 @@ function ShopDeatial1() {
 
   return (
     <Styled.ShopDetail1>
-      <Styled.InfoText>가게의 상세정보를 알려주세요 (1/2)</Styled.InfoText>
       <Styled.InputList>
         <Styled.InputDiv>
           <Styled.InputText>성함</Styled.InputText>
@@ -84,12 +118,27 @@ function ShopDeatial1() {
           </div>
         </Styled.InputDiv>
       </Styled.InputList>
+      <Button
+        onClick={handleClick}
+        className="button"
+        disabled={!namecheck || !detailcheck || !callnumcheck || !storecheck}
+      >
+        다음으로
+      </Button>
     </Styled.ShopDetail1>
   );
 }
 
 const Styled = {
-  ShopDetail1: styled.section``,
+  ShopDetail1: styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    & .button {
+      margin-top: 100px;
+    }
+  `,
 
   InfoText: styled.div`
     height: 4.6rem;
