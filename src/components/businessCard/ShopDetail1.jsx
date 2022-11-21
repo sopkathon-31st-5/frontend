@@ -87,7 +87,7 @@ function ShopDeatial1({ setStep }) {
               placeholder="사장님 성함"
               defaultValue={inputData?.userName?.name}
             ></Styled.DetailInput>
-            <Styled.Ischecked src={namecheck ? checked_icon : unchecked_icon} />
+            <Styled.Ischecked src={checked_icon} />
           </div>
         </Styled.InputDiv>
         <Styled.InputDiv>
@@ -109,7 +109,7 @@ function ShopDeatial1({ setStep }) {
               placeholder="전화번호 (-없이 입력)"
               defaultValue={inputData?.card?.telNumber}
             ></Styled.DetailInput>
-            <Styled.Ischecked src={callnumcheck ? checked_icon : unchecked_icon} />
+            <Styled.Ischecked src={checked_icon} />
           </div>
         </Styled.InputDiv>
         <Styled.InputDiv>
@@ -123,11 +123,7 @@ function ShopDeatial1({ setStep }) {
           </div>
         </Styled.InputDiv>
       </Styled.InputList>
-      <Button
-        onClick={handleClick}
-        className="button"
-        disabled={!namecheck || !detailcheck || !callnumcheck || !storecheck}
-      >
+      <Button onClick={handleClick} className="button" disabled={!detailcheck || !storecheck}>
         다음으로
       </Button>
     </Styled.ShopDetail1>

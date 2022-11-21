@@ -17,8 +17,8 @@ function Result() {
     copyLinkRef.current.focus();
     copyLinkRef.current.select();
 
-    navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
-      // alert('링크를 복사했습니다.');
+    navigator.clipboard.writeText('http://localhost:3000/usercard/18').then(() => {
+      alert('링크를 복사했습니다.');
     });
   };
 

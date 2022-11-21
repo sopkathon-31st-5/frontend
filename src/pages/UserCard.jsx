@@ -66,7 +66,7 @@ function UserCard({ userid = 18 }) {
           <h1 className="introduce">{cardData.card.introduce}</h1>
         </StCard>
       </StCardWrapper>
-      <Stimgcard src={cardData.card.imageURL}></Stimgcard>
+      <Stimgcard src="https://user-images.githubusercontent.com/81923229/202875761-9f56cf7d-6a7e-4359-bc04-22392a585c67.png"></Stimgcard>
     </>
   );
 }

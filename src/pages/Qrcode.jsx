@@ -50,6 +50,7 @@ const StQRPageWrapper = styled.section`
   background: url('image/backgroundImg.png');
   background-size: 375px;
   margin-top: -5px;
+  height: 100vh;
 `;
 
 const Styled = {
